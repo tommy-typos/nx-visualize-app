@@ -73,7 +73,10 @@ export default function Home() {
 						stroke="white"
 						strokeWidth={3}
 						label={{
-							value: "Weekly Total Cost",
+							value:
+								aggregateBy === "week"
+									? "Weekly Total Cost"
+									: "Monthly Total Cost",
 							angle: -90,
 							position: "insideLeft",
 							fill: "white",

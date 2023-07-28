@@ -56,7 +56,7 @@ export function Controllers({
 				Generate locally
 			</button>
 			<div className=" flex justify-center items-center bg-fuchsia-900 w-fit m-auto p-2 px-4 rounded-2xl bg-opacity-70">
-				<p className="text-white  p-2 text-center select-none opacity-80">
+				<p className="text-white  p-2 text-center select-none opacity-80 hidden md:block">
 					Aggregate by
 				</p>
 				<button
