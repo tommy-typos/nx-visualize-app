@@ -3,4 +3,4 @@ export function shared(): string {
 }
 
 export { generateData, rechartMonthlyData, rechartWeeklyData } from "./rechart";
-export { DataRow, RechartColumn } from "./types";
+export type { DataRow, RechartColumn } from "./types";
