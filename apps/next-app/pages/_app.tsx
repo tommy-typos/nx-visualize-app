@@ -10,7 +10,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Nx Visualize</title>
       </Head>
-      <main className="flex h-full w-full">
+      <main className="flex min-h-full w-full">
         <GithubCorner
           direction="left"
           bannerColor={twColors.fuchsia[950]}
