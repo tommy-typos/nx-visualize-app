@@ -40,6 +40,8 @@ export default function Home() {
 		setPage(1);
 	}, []);
 
+
+
 	function generateHandler() {
 		// console.log(rechartWeeklyData(generateData(730)));
 		setData(rechartWeeklyData(generateData(730)));
@@ -66,6 +68,15 @@ export default function Home() {
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	function uploadHandler() {}
+
+	function serverDataHandler() {
+		fetch("http://localhost:3000/generate/week/").then(result => result.json()).then(
+			data => {
+				console.log(data);
+			}
+		)
+		console.log("hi")
+	}
 
 	return (
 		<div className="flex-row   w-full bg-gradient-to-bl from-red-500 via-fuchsia-800 to-purple-500">
@@ -146,6 +157,12 @@ export default function Home() {
 						className="p-4 px-4 bg-fuchsia-900 bg-opacity-70 text-white rounded-2xl hover:bg-fuchsia-950"
 					>
 						<p>Upload your file</p>
+					</button>
+					<button
+						onClick={serverDataHandler}
+						className="p-4 px-4 bg-fuchsia-900 bg-opacity-70 text-white rounded-2xl hover:bg-fuchsia-950"
+					>
+						<p>get server data</p>
 					</button>
 
 					<button
