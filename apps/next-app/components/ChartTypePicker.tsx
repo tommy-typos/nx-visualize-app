@@ -18,6 +18,15 @@ export function ChartTypePicker({
 				<p className="hover:scale-105">{`<Recharts />`}</p>
 			</Link>
 			<Link
+				href="/"
+				className={classNames(
+					" text-teal-500 mr-3   rounded-2xl p-4 ",
+					type === null && "bg-fuchsia-950 text-teal-300 "
+				)}
+			>
+				<p className="hover:scale-105">{`Home`}</p>
+			</Link>
+			<Link
 				href="/aggrid"
 				className={classNames(
 					" flex items-center text-white rounded-2xl p-4 px-5 group",
