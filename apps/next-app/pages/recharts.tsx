@@ -1,23 +1,11 @@
-import { App } from "../components/AGGrid/App";
-import { ChartTypePicker } from "../components/AGGrid/ChartTypePicker";
-import { Pagination } from "../components/AGGrid/Pagination";
-import {
-	DataRow,
-	RechartColumn,
-	generateData,
-	rechartMonthlyData,
-	rechartWeeklyData,
-} from "@nx-visualize-app/shared";
+import { ChartTypePicker } from "../components/ChartTypePicker";
+import { Pagination } from "../components/Pagination";
+import { RechartColumn } from "@nx-visualize-app/shared";
 import { twColors } from "../utils/twTheme";
-import classNames from "classnames";
-import Link from "next/link";
 import { useEffect, useState } from "react";
-
-import React, { PureComponent } from "react";
 import {
 	ComposedChart,
 	Line,
-	Area,
 	Bar,
 	XAxis,
 	YAxis,
@@ -25,64 +13,43 @@ import {
 	Tooltip,
 	Legend,
 	ResponsiveContainer,
-	LineChart,
 } from "recharts";
+import { useDataStore } from "../zustand-store/store";
+import { Controllers } from "../components/Controllers";
 
 export default function Home() {
-	const [page, setPage] = useState(1);
-	const [aggregateBy, setAggregateBy] = useState<"week" | "month">("week");
-	const numOfPages = 10;
-	const [raw, setRaw] = useState<DataRow[]>([] as DataRow[]);
+	const weekData = useDataStore((state) => state.weekData);
+	const monthData = useDataStore((state) => state.monthData);
+	const setRawAndWeekData = useDataStore((state) => state.setRawAndWeekData);
+
 	const [data, setData] = useState<RechartColumn[]>([] as RechartColumn[]);
 
+	const [page, setPage] = useState(1);
+	const [aggregateBy, setAggregateBy] = useState<"week" | "month">("week");
+
 	useEffect(() => {
-		setData(rechartWeeklyData(generateData(730)));
-		setPage(1);
+		if (weekData === null) {
+			setRawAndWeekData();
+		}
 	}, []);
 
+	useEffect(() => {
+		setAggregateBy("week");
+	}, [weekData]);
 
-
-	function generateHandler() {
-		// console.log(rechartWeeklyData(generateData(730)));
-		setData(rechartWeeklyData(generateData(730)));
-		setPage(1);
-	}
-
-	function aggregateTypeHandler(passedType: "week" | "month") {
-		setAggregateBy(passedType);
-		// TODO: this shouldn't block operations (usedeferred value needed i guess)
-		setTimeout(() => {
-			if (passedType === aggregateBy) {
-				// do nothing
-			} else {
-				if (passedType === "week") {
-					setData(rechartWeeklyData(generateData(730)));
-					setPage(1);
-				} else {
-					setData(rechartMonthlyData(generateData(730)));
-					setPage(1);
-				}
-			}
-		}, 0);
-	}
-
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	function uploadHandler() {}
-
-	function serverDataHandler() {
-		fetch("http://localhost:3000/generate/week/").then(result => result.json()).then(
-			data => {
-				console.log(data);
-			}
-		)
-		console.log("hi")
-	}
+	useEffect(() => {
+		if (aggregateBy === "week") {
+			setData(weekData ?? []);
+		} else {
+			setData(monthData ?? []);
+		}
+	}, [aggregateBy, weekData, monthData]);
 
 	return (
 		<div className="flex-row   w-full bg-gradient-to-bl from-red-500 via-fuchsia-800 to-purple-500">
 			<ChartTypePicker type={"recharts"} />
 
-			<ResponsiveContainer className="!h-2/3 !w-4/5 m-auto">
+			<ResponsiveContainer className="!h-2/3 !w-4/5 m-auto max-w-4xl">
 				<ComposedChart
 					width={500}
 					height={400}
@@ -118,7 +85,7 @@ export default function Home() {
 						stroke="white"
 						strokeWidth={3}
 						label={{
-							value: "Impression Count",
+							value: "Impressions",
 							angle: -90,
 							position: "insideRight",
 							fill: "white",
@@ -144,59 +111,17 @@ export default function Home() {
 						yAxisId="forline"
 						type="monotone"
 						dataKey="impressionCount"
-						name="Impression Count"
+						name="Impressions"
 						stroke={twColors.fuchsia[950]}
 						strokeWidth={3}
 					/>
 				</ComposedChart>
 			</ResponsiveContainer>
-			<div className="flex items-center justify-end !w-4/5 m-auto mt-4 gap-4">
-				<div className="flex justify-center items-center gap-4 ">
-					<button
-						onClick={uploadHandler}
-						className="p-4 px-4 bg-fuchsia-900 bg-opacity-70 text-white rounded-2xl hover:bg-fuchsia-950"
-					>
-						<p>Upload your file</p>
-					</button>
-					<button
-						onClick={serverDataHandler}
-						className="p-4 px-4 bg-fuchsia-900 bg-opacity-70 text-white rounded-2xl hover:bg-fuchsia-950"
-					>
-						<p>get server data</p>
-					</button>
-
-					<button
-						onClick={generateHandler}
-						className="p-4 px-4 bg-fuchsia-900 bg-opacity-70 text-white rounded-2xl hover:bg-fuchsia-950"
-					>
-						Generate random data
-					</button>
-					<div className=" flex justify-center items-center bg-fuchsia-900 w-fit m-auto p-2 px-4 rounded-2xl bg-opacity-70">
-						<p className="text-white  p-2 text-center select-none opacity-80">
-							Aggregate by
-						</p>
-						<button
-							onClick={() => aggregateTypeHandler("week")}
-							className={classNames(
-								" text-white flex hover:scale-105 px-3  p-2",
-								aggregateBy === "week" &&
-									"bg-fuchsia-950 rounded-2xl"
-							)}
-						>
-							Week
-						</button>
-						<button
-							onClick={() => aggregateTypeHandler("month")}
-							className={classNames(
-								" text-white flex items-center hover:scale-105 px-3  p-2",
-								aggregateBy === "month" &&
-									"bg-fuchsia-950 rounded-2xl"
-							)}
-						>
-							Month
-						</button>
-					</div>
-				</div>
+			<div className="flex items-center justify-center  m-auto mt-4 gap-4">
+				<Controllers
+					aggregateBy={aggregateBy}
+					setAggregateBy={setAggregateBy}
+				/>
 				<Pagination
 					page={page}
 					setPage={setPage}

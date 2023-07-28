@@ -7,6 +7,8 @@
   "dependencies": {
     "ag-charts-community": "^8.0.5",
     "ag-charts-react": "^8.0.5",
+    "ag-grid-community": "^30.0.5",
+    "ag-grid-react": "^30.0.5",
     "axios": "^1.0.0",
     "classnames": "^2.3.2",
     "cors": "^2.8.5",
@@ -16,7 +18,8 @@
     "react-dom": "18.2.0",
     "react-github-corner": "^2.5.0",
     "recharts": "^2.7.2",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "zustand": "^4.3.9"
   },
   "devDependencies": {
     "@nx/cypress": "16.5.5",

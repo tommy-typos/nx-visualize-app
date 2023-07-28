@@ -8,30 +8,54 @@ body,
 	height: 100%;
 }
 
+/* 
 
-/* aggrid styles */
+ag grid chart styles
 
-.wrapper {
+*/
+
+/* .wrapper {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-  }
-  
-  #toolPanel {
+}
+
+#toolPanel {
 	text-align: center;
-  }
-  
-  .spacer {
+}
+
+.spacer {
 	display: inline-block;
 	min-width: 20px;
-  }
-  
-  #myChart {
-	height: 100%;
-  }
+}
 
- /* :root {
-	--ag-alpine-active-color: green;
-	--ag-balham-active-color: green;
-	--ag-foreground-color: green;
- } */
+#myChart {
+	height: 100%;
+} */
+
+/**
+ 
+ ag grid grid styles down beloooo
+ 
+ */
+
+.ag-header.ag-pivot-off.ag-header-allow-overflow {
+	background-color: theme(colors[fuchsia].800);
+}
+
+.ag-header.ag-pivot-off.ag-header-allow-overflow
+	.ag-header-row.ag-header-row-column {
+	color: theme(colors[fuchsia].100);
+}
+
+::-webkit-scrollbar {
+	width: 17px;
+}
+
+::-webkit-scrollbar-track {
+	background: theme(colors[fuchsia].800);
+}
+
+::-webkit-scrollbar-thumb {
+	background: theme(colors[fuchsia].500);
+}

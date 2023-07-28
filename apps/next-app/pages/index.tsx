@@ -1,4 +1,4 @@
-import { ChartTypePicker } from "../components/AGGrid/ChartTypePicker";
+import { ChartTypePicker } from "../components/ChartTypePicker";
 
 export function Index() {
 	return (
