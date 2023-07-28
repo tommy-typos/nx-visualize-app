@@ -19,14 +19,20 @@ export const AgChartExample = () => {
 	const chartRef = useRef<AgChartsReact>(null);
 	const [options, setOptions] = useState<AgCartesianChartOptions>({
 		background: {
-			fill: "transparent"
+			fill: "transparent",
 		},
 		autoSize: true,
 		data: getData(),
 		theme: {
 			palette: {
 				fills: ["#7cecb3", "#7cb5ec", "#ecb37c", "#ec7cb5", "#7c7dec"],
-				strokes: ["#7cecb3", "#7cb5ec", "#ecb37c", "#ec7cb5", "#7c7dec"],
+				strokes: [
+					"#7cecb3",
+					"#7cb5ec",
+					"#ecb37c",
+					"#ec7cb5",
+					"#7c7dec",
+				],
 			},
 		},
 		// title: {

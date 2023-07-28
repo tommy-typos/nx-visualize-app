@@ -1,7 +1,13 @@
 import { App } from "../components/AGGrid/App";
 import { ChartTypePicker } from "../components/AGGrid/ChartTypePicker";
 import { Pagination } from "../components/AGGrid/Pagination";
-import { DataRow, RechartColumn, generateData, rechartMonthlyData, rechartWeeklyData  } from "../utils/data";
+import {
+	DataRow,
+	RechartColumn,
+	generateData,
+	rechartMonthlyData,
+	rechartWeeklyData,
+} from "@nx-visualize-app/shared";
 import { twColors } from "../utils/twTheme";
 import classNames from "classnames";
 import Link from "next/link";
@@ -66,27 +72,46 @@ export default function Home() {
 			<ChartTypePicker type={"recharts"} />
 
 			<ResponsiveContainer className="!h-2/3 !w-4/5 m-auto">
-				<ComposedChart width={500} height={400} data={data.slice((page - 1) * 5, (page - 1) * 5 + 5)}>
+				<ComposedChart
+					width={500}
+					height={400}
+					data={data.slice((page - 1) * 5, (page - 1) * 5 + 5)}
+				>
 					<CartesianGrid stroke="white" />
 					<XAxis
 						stroke="white"
 						strokeWidth={3}
 						dataKey="name"
-						label={{ value: "Weeks", position: "insideBottomRight", offset: 0, fill: "white" }}
+						label={{
+							value: "Weeks",
+							position: "insideBottomRight",
+							offset: 0,
+							fill: "white",
+						}}
 						// scale="band"
 					/>
 					<YAxis
 						yAxisId="forbar"
 						stroke="white"
 						strokeWidth={3}
-						label={{ value: "Weekly Total Cost", angle: -90, position: "insideLeft", fill: "white" }}
+						label={{
+							value: "Weekly Total Cost",
+							angle: -90,
+							position: "insideLeft",
+							fill: "white",
+						}}
 					/>
 					<YAxis
 						yAxisId="forline"
 						orientation="right"
 						stroke="white"
 						strokeWidth={3}
-						label={{ value: "Impression Count", angle: -90, position: "insideRight", fill: "white" }}
+						label={{
+							value: "Impression Count",
+							angle: -90,
+							position: "insideRight",
+							fill: "white",
+						}}
 					/>
 					<Tooltip />
 					<Legend />
@@ -130,12 +155,15 @@ export default function Home() {
 						Generate random data
 					</button>
 					<div className=" flex justify-center items-center bg-fuchsia-900 w-fit m-auto p-2 px-4 rounded-2xl bg-opacity-70">
-						<p className="text-white  p-2 text-center select-none opacity-80">Aggregate by</p>
+						<p className="text-white  p-2 text-center select-none opacity-80">
+							Aggregate by
+						</p>
 						<button
 							onClick={() => aggregateTypeHandler("week")}
 							className={classNames(
 								" text-white flex hover:scale-105 px-3  p-2",
-								aggregateBy === "week" && "bg-fuchsia-950 rounded-2xl"
+								aggregateBy === "week" &&
+									"bg-fuchsia-950 rounded-2xl"
 							)}
 						>
 							Week
@@ -144,14 +172,19 @@ export default function Home() {
 							onClick={() => aggregateTypeHandler("month")}
 							className={classNames(
 								" text-white flex items-center hover:scale-105 px-3  p-2",
-								aggregateBy === "month" && "bg-fuchsia-950 rounded-2xl"
+								aggregateBy === "month" &&
+									"bg-fuchsia-950 rounded-2xl"
 							)}
 						>
 							Month
 						</button>
 					</div>
 				</div>
-				<Pagination page={page} setPage={setPage} numOfPages={Math.ceil(data.length / 5)} />
+				<Pagination
+					page={page}
+					setPage={setPage}
+					numOfPages={Math.ceil(data.length / 5)}
+				/>
 			</div>
 		</div>
 	);

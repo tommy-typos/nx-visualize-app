@@ -1,5 +1,4 @@
-import { generateData, rechartWeeklyData } from "apps/next-app/utils/data";
-import { sample } from "apps/next-app/utils/sample";
+import { generateData, rechartWeeklyData } from "@nx-visualize-app/shared";
 import { useEffect, useState } from "react";
 export function App() {
 	const [toggle, setToggle] = useState(false);
